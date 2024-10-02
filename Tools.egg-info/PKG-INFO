@@ -1,0 +1,7 @@
+Metadata-Version: 2.1
+Name: Tools
+Version: 0.1
+Requires-Dist: PyPDF2
+Requires-Dist: filetype
+Requires-Dist: pymssql
+Requires-Dist: boto3
