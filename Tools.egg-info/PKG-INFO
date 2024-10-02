@@ -5,3 +5,4 @@ Requires-Dist: PyPDF2
 Requires-Dist: filetype
 Requires-Dist: pymssql
 Requires-Dist: boto3
+Requires-Dist: datadog
