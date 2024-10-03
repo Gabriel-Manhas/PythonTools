@@ -304,11 +304,10 @@ from datadog import initialize, api
 from datadog import statsd
 
 class DatadogLogger:
-    def __init__(self, api_key, app_key, env='prod', script_name='default_script'):
+    def __init__(self, api_key, env='prod', script_name='default_script'):
         # Initialize Datadog
         self.options = {
-            'api_key': api_key,
-            'app_key': app_key,
+            'api_key': api_key
         }
         initialize(**self.options)
 
@@ -344,3 +343,24 @@ class DatadogLogger:
 
     def log_metric(self, metric_name, value=1):
         statsd.increment(metric_name, value)
+        
+class SimpleLogger:
+    def __init__(self, api_key=None, env='prod', script_name='default_script'):
+        # Set up logger
+        self.logger = logging.getLogger(script_name)
+        self.logger.setLevel(logging.INFO)
+
+        # Add StreamHandler
+        stream_handler = logging.StreamHandler()
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        stream_handler.setFormatter(formatter)
+        self.logger.addHandler(stream_handler)
+
+    def log_info(self, message):
+        self.logger.info(message)
+
+    def log_error(self, message):
+        self.logger.error(message)
+
+    def log_metric(self, metric_name, value=1):
+        pass

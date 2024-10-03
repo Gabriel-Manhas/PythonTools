@@ -12,3 +12,5 @@ setup(
         'datadog'
     ],
 )
+
+#run: python setup.py sdist to create the tar.gz file
