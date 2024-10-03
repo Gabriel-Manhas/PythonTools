@@ -253,12 +253,21 @@ def upload_to_s3(s3_client, file_content, bucket, key, content_type = 'applicati
     :param bucket: The S3 bucket name.
     :param key: The key (path) where the file will be uploaded.
     """
-    s3_client.put_object(
-        Bucket=bucket,
-        Key=key,
-        Body=file_content,
-        ContentType=content_type  # Adjust the content type if necessary
-    )
+    try:
+        response = s3_client.put_object(
+            Bucket=bucket,
+            Key=key,
+            Body=file_content,
+            ContentType=content_type  # Adjust the content type if necessary
+        )
+        
+        # Check the HTTP status code
+        if response['ResponseMetadata']['HTTPStatusCode'] == 200:
+            return True
+        else:
+            return False
+    except Exception as e:
+        return False
 
 # Documents processing tools
 def get_pdf_pages(file_content):
